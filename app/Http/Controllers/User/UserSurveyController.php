@@ -39,9 +39,22 @@ class UserSurveyController extends Controller{
         ], 201);
     }
 
-    public function getSurveys(request $request){
+    public function getSurveys(){
         $surveys = Survey::with(['questions'=>function($querry){
             $querry->with('options');
+        }])->get();
+        
+        return response()->json([
+            'status' => 'Success',
+            'surveys' => $surveys,
+        ], 200);
+    }
+
+    public function getCompletedSurveys($id){
+        $surveys = Survey::with(['questions'=>function($querry) use ($id){
+            $querry->with(['answers'=>function($q) use ($id){
+                $q->where('user_id', $id);
+            }]);
         }])->get();
         
         return response()->json([
