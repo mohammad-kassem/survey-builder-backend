@@ -38,4 +38,15 @@ class UserSurveyController extends Controller{
             'message' => 'Survey response successfully added',
         ], 201);
     }
+
+    public function getSurveys(request $request){
+        $surveys = Survey::with(['questions'=>function($querry){
+            $querry->with('options');
+        }])->get();
+        
+        return response()->json([
+            'status' => 'Success',
+            'surveys' => $surveys,
+        ], 200);
+    }
 }
