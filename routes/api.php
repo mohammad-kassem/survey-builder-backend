@@ -12,8 +12,8 @@ Route::group(['prefix' => 'v1'], function(){
     });
     Route::group(['prefix' => 'admin'], function(){
         Route::post('/add_survey', [AdminSurveyController::class, 'addSurvey']);
-        Route::post('/get_surveys', [AdminSurveyController::class, 'getSurveys']);
-
+        Route::get('/get_surveys', [AdminSurveyController::class, 'getSurveys']);
+        Route::get('/get_responses/{id?}', [AdminSurveyController::class, 'getResponses']);
     });
 });
 

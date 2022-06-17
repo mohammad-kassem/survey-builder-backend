@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use Auth;
+use App\Models\User;
+use App\Models\UserAnswer;
 use App\Models\Survey;
 use App\Models\Question;
 use App\Models\AnswerOption;
@@ -57,4 +59,18 @@ class AdminSurveyController extends Controller{
             'surveys' => $surveys,
         ], 200);
     }
+
+    public function getResponses($id){
+        $responses = Survey::where('id', $id)->with(['questions'=>function($querry){
+            $querry->with(['answers'=>function($q){
+                $q->with('user');
+            }]);
+        }])->get();
+        
+        return response()->json([
+            'status' => 'Success',
+            'responses' => $responses,
+        ], 200);
+    }
+
 }
