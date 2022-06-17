@@ -14,4 +14,19 @@ class Question extends Model{
         'survey_id',
         'type',
     ];
+
+    
+    public function answers(){
+    return $this->hasMany(UserAnswer::class);
+    }
+
+    
+    public function options(){
+        return $this->hasMany(AnswerOption::class);
+    }
+
+    public function survey(){
+        return $this->belongTo(Survey::class);
+    }
+
 }

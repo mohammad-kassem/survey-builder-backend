@@ -14,4 +14,13 @@ class UserAnswer extends Model{
         'user_id',
         'value',
     ];
+
+    public function user(){
+        return $this->belongTo(User::class);
+    }
+
+    public function question(){
+        return $this->belongTo(Question::class);
+    }
+
 }
