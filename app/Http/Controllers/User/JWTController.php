@@ -10,8 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\HTTP\Controllers\Controller;
 
-class JWTController extends Controller
-{
+class JWTController extends Controller{
     //Create a new AuthController instance.
     public function __construct(){
         $this->middleware('auth:api', ['except' => ['login', 'register']]);
