@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Schema;
 class CreateAnswerOptionsTable extends Migration{
     public function up()
     {
-        Schema::create('avialable_answers', function (Blueprint $table) {
+        Schema::create('answer_options', function (Blueprint $table) {
             $table->id();
             $table->string('option', 255);
             $table->integer('question_id');
@@ -16,6 +16,6 @@ class CreateAnswerOptionsTable extends Migration{
     }
 
     public function down(){
-        Schema::dropIfExists('avialable_answers');
+        Schema::dropIfExists('answer_options');
     }
 }
