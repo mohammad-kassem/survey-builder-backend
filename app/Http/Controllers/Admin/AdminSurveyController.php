@@ -38,12 +38,23 @@ class AdminSurveyController extends Controller{
             }
         }
 
-       
-
+        // sample data
         // {'title':'first', 'description':'bleh', 'questions':[{"text":"bdjh", "type":"checkbox","options":[{"option": true}, {"option": false}]}]}
 
         return response()->json([
+            'status' => 'Success',
             'message' => 'Survey successfully added',
         ], 201);
+    }
+
+    public function getSurveys(){
+        $surveys = Survey::with(['questions'=>function($querry){
+            $querry->with('options');
+        }])->get();
+        
+        return response()->json([
+            'status' => 'Success',
+            'surveys' => $surveys,
+        ], 200);
     }
 }

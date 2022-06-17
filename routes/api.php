@@ -10,8 +10,10 @@ Route::group(['prefix' => 'v1'], function(){
         Route::post('/register', [JWTController::class, 'register']);
         Route::post('/login', [JWTController::class, 'login']);
     });
-    Route::group(['prefix' => 'user'], function(){
+    Route::group(['prefix' => 'admin'], function(){
         Route::post('/add_survey', [AdminSurveyController::class, 'addSurvey']);
+        Route::post('/get_surveys', [AdminSurveyController::class, 'getSurveys']);
+
     });
 });
 

@@ -40,6 +40,7 @@ class JWTController extends Controller{
             ]);
 
         return response()->json([
+            'status' => 'Success',
             'message' => 'User successfully registered',
             'user' => $user
         ], 201);
