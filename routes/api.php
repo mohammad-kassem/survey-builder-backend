@@ -4,11 +4,13 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\User\JWTController;
 use App\Http\Controllers\Admin\AdminSurveyController;
+use App\Http\Controllers\User\UserSurveyController;
 
 Route::group(['prefix' => 'v1'], function(){
     Route::group(['prefix' => 'user'], function(){
         Route::post('/register', [JWTController::class, 'register']);
         Route::post('/login', [JWTController::class, 'login']);
+        Route::post('/add_response', [UserSurveyController::class, 'addResponse']);
     });
     Route::group(['prefix' => 'admin'], function(){
         Route::post('/add_survey', [AdminSurveyController::class, 'addSurvey']);
@@ -16,4 +18,6 @@ Route::group(['prefix' => 'v1'], function(){
         Route::get('/get_responses/{id?}', [AdminSurveyController::class, 'getResponses']);
     });
 });
+
+
 

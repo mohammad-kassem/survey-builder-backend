@@ -41,7 +41,7 @@ class AdminSurveyController extends Controller{
         }
 
         // sample data
-        // {'title':'first', 'description':'bleh', 'questions':[{"text":"bdjh", "type":"checkbox","options":[{"option": true}, {"option": false}]}]}
+        // {"title":"first", "description":"bleh", "questions":[{"text":"bdjh", "type":"checkbox","options":[{"option": true}, {"option": false}]}]}
 
         return response()->json([
             'status' => 'Success',
