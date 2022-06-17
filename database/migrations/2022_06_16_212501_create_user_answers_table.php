@@ -5,11 +5,9 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
 class CreateUserAnswersTable extends Migration{
-    public function up()
-    {
+    public function up(){
         Schema::create('user_answers', function (Blueprint $table) {
             $table->id();
-            $table->integer('survey_id');
             $table->integer('question_id');
             $table->integer('user_id');
             $table->string('value', 255);

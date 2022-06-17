@@ -9,7 +9,6 @@ class UserAnswer extends Model{
     use HasFactory;
 
     protected $fillable = [
-        'survey_id',
         'question_id',
         'user_id',
         'value',
