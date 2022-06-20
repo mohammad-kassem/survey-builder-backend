@@ -19,11 +19,14 @@ class UserSurveyController extends Controller{
     }
 
     public function addResponse(request $request){
+        echo($request);
         $json = json_decode($request->answers);
         $answers = $json->questions;
+        $user_id = auth()->user()->id;
+
         foreach($answers as $answer){
             $inserted_answers = UserAnswer::create([
-                'user_id' => $json->user_id,
+                'user_id' => $user_id,
                 'question_id' => $answer->question_id,
                 'value' => $answer->answer,
             ]);
@@ -39,10 +42,20 @@ class UserSurveyController extends Controller{
         ], 201);
     }
 
-    public function getSurveys(){
+    public function getSurveys($id = NULL){
         $surveys = Survey::with(['questions'=>function($querry){
             $querry->with('options');
         }])->get();
+
+        if ($id != NULL) 
+        {   $survey = Survey::with(['questions'=>function($querry){
+            $querry->with('options');
+            }])->where('id', $id)->get();
+            return response()->json([
+                'status' => 'Success',
+                'survey' => $survey,
+            ], 200);
+        }
         
         return response()->json([
             'status' => 'Success',
@@ -50,16 +63,20 @@ class UserSurveyController extends Controller{
         ], 200);
     }
 
-    public function getCompletedSurveys($id){
-        $surveys = Survey::with(['questions'=>function($querry) use ($id){
-            $querry->with(['answers'=>function($q) use ($id){
-                $q->where('user_id', $id);
+    public function getCompletedSurveys(){
+        $user=auth()->user();
+        $user_id = $user->id;
+        $surveys = Survey::with(['questions'=>function($querry) use ($user_id){
+            $querry->with(['answers'=>function($q) use ($user_id){
+                $q->where('user_id', $user_id);
             }]);
         }])->get();
         
         return response()->json([
             'status' => 'Success',
             'surveys' => $surveys,
+            'user' => $user,
+            
         ], 200);
     }
 }
