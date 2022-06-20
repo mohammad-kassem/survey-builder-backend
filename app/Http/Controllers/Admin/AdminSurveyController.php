@@ -19,24 +19,27 @@ class AdminSurveyController extends Controller{
     }
 
     public function addSurvey(request $request){
-        $survey = json_decode($request->survey);
+        $survey = ($request);
         $inserted_survey = Survey::create([
             'title'=>$survey->title,
             'description'=>$survey->description,
         ]);
         $questions = $survey->questions;
         foreach($questions as $question){
+            $question = json_decode(json_encode($question));
             $inserted_question = Question::create([
-                'text'=>$question->text,
+                "text"=>$question->text,
                 'type'=>$question->type,
                 'survey_id'=>$inserted_survey->id,
             ]);
             $options = ($question->options);
             foreach($options as $option){
+                if (!empty($option->option)){
+                $option = json_decode(json_encode($option));
                 $inserted_option = AnswerOption::create([
                     'option'=>$option->option,
                     'question_id'=>$inserted_question->id,
-                ]);
+                ]);}
             }
         }
 
