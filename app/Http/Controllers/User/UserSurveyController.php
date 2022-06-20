@@ -18,13 +18,13 @@ class UserSurveyController extends Controller{
         $this->middleware('auth:api');
     }
 
-    public function addResponse(request $request){
-        echo($request);
-        $json = json_decode($request->answers);
+    public function addResponse(Request $request){
+        $json = ($request);
         $answers = $json->questions;
         $user_id = auth()->user()->id;
 
         foreach($answers as $answer){
+            $answer = json_decode(json_encode($answer));
             $inserted_answers = UserAnswer::create([
                 'user_id' => $user_id,
                 'question_id' => $answer->question_id,
