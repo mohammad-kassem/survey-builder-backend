@@ -49,6 +49,7 @@ class AdminSurveyController extends Controller{
         return response()->json([
             'status' => 'Success',
             'message' => 'Survey successfully added',
+            'survey' => $survey,
         ], 201);
     }
 
