@@ -34,7 +34,7 @@ class UserSurveyController extends Controller{
 
         
         // sample data
-        // {"user_id": 1, "questions":[{"question_id":1, "answer": true},{"question_id":2, "answer": false}]}
+        // {"questions":[{"question_id":1, "answer": true},{"question_id":2, "answer": false}]}
 
         return response()->json([
             'status' => 'Success',
